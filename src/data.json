@@ -1,0 +1,32 @@
+{
+	"intents": [
+		{
+			"patterns": ["hello", "hi", "greetings"],
+			"responses": ["Hello!", "Hi!", "Greetings!"]
+		},
+		{
+			"patterns": ["goodbye", "bye", "cya", "see you later"],
+		    	"responses": ["goodbye"]
+		},
+		{
+		    	"patterns": ["how are you doing", "how are you"],
+		    	"responses": ["Good what about you?", "I am doing good today!", "I am feeling well."]
+		},
+		{
+		    	"patterns": ["what is your name", "what should i call you"],
+		    	"responses": ["My name is JARVIS.", "I would prefer to be called JARVIS."]
+		},
+		{
+		    	"patterns": ["that is good to know", "great"],
+		    	"responses": ["Thank you!", "Thanks!"]
+		},
+		{
+		    	"patterns": ["i am doing well"],
+		    	"responses": ["That is good to hear!"]
+		},
+		{
+		    	"patterns": ["thanks", "thank you"],
+		    	"responses": ["You are welcome!", "Welcome!", "Your welcome!"]
+		}
+	]
+}
