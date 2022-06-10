@@ -4,6 +4,8 @@ Jarvis is a assistant that runs on Python and Json.
 
 Jarvis is designed to be helpful and to make things easier.
 
+**On windows, make sure to use PowerShell**
+
 To install requirements for JARVIS, run:
 - `python3 -m venv env`
 - (Linux/Mac) `source /env/bin/activate`
