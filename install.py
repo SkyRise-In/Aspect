@@ -1,4 +1,5 @@
 import json
+from os import system
 
 # install.py by Hudson Smith.
 
@@ -112,5 +113,9 @@ settings = {"username": username, "name": bot_name, "gender": gender}
 file = open("settings.json", "w")
 
 json.dump(settings, file, indent=2)
+
+log.info("Installing python packages.")
+
+system("pip install -r requirements.txt")
 
 log.succeed("Great, now just run `main.py` in order to chat!")
