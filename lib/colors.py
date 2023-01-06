@@ -1,0 +1,10 @@
+class Colors:
+    red = "\033[31m"
+    blue = "\033[34m"
+    green = "\033[32m"
+    purple = "\033[35m"
+    brown = "\033[33m"
+    yellow = "\033[1;33m"
+    cyan = "\033[36m"
+    pink = "\033[35;1m"
+    reset = "\033[0m"
