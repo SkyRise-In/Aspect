@@ -1,6 +1,8 @@
 from lib.colors import Colors
 from lib.clear import clear
 
+import speech_recognition as sr
+
 from os import get_terminal_size
 import json
 
@@ -22,64 +24,73 @@ class Assistant(object):
 
         self.terminal_size = get_terminal_size()
         self.engine = engine
+        self.on = False
 
-    def run(self):
+    def run(self) -> None:
+        pass
+
+    def draw_console(self):
         """A function to run the Assistant."""
         print("Hit ^C or type 'quit' or 'exit' to exit.")
-        while True:
-            self.terminal_size = get_terminal_size()
+        self.terminal_size = get_terminal_size()
 
-            # If the user tries to hit ^C then quit the program.
-            try:
-                if len(self.messages) >= self.terminal_size[1]:
-                    clear()
+        # If the user tries to hit ^C then quit the program.
+        # try:
+        if len(self.messages) >= self.terminal_size[1]:
+            clear()
 
-                    # Find out how many lines are available.
-                    i = self.terminal_size[1] - 2
+            # Find out how many lines are available.
+            i = self.terminal_size[1] - 2
 
-                    # Start from point i when printing the list.
-                    j = len(self.messages) - i
+            # Start from point i when printing the list.
+            j = len(self.messages) - i
 
-                    for message in self.messages[j:]:
-                        print(message)
+            for message in self.messages[j:]:
+                print(message)
 
-                else:
-                    clear()
+        else:
+            clear()
 
-                    for message in self.messages:
-                        print(message)
+            for message in self.messages:
+                print(message)
 
-                    print("\n" * ((self.terminal_size[1] - len(self.messages)) - 3))
+            print("\n" * ((self.terminal_size[1] - len(self.messages)) - 3))
 
-                user_input = self._prompt()
-            except KeyboardInterrupt:
-                exit()
+            user_input = self._prompt()
 
-            user_input = self._clean(user_input)
-            self.messages.append(
-                f"{Colors.red}{self.username}{Colors.reset}:{Colors.purple} {user_input}{Colors.reset}"
-            )
-            response = self._bag(user_input)
+            if self._clean(user_input) == f"hey {self.bot_name}":
+                self.on = True
+            
+            else:
+                self.on = False
 
-            # If the intent is not return then it means that JARVIS cannot understand the user.
-            if response is None:
-                with open("src/log.txt", "a") as f:
-                    f.write(f"\n{user_input}\n")
-                continue
+        # except KeyboardInterrupt:
+        #     exit()
 
-            # Check if there is a return value from the bag function.
-            if user_input:
-                output = self._respond(response)
+        # user_input = self._clean(user_input)
+        # self.messages.append(
+        #     f"{Colors.red}{self.username}{Colors.reset}:{Colors.purple} {user_input}{Colors.reset}"
+        # )
+        # response = self._bag(user_input)
 
-                # Add the formatted string to the output.
-                #
-                # Like the equivalent of printing, except that the text
-                # is drawn the next iteration of the loop
-                self.messages.append(self._format_string(output))
+        # If the intent is not return then it means that JARVIS cannot understand the user.
+        if response is None:
+            with open("src/log.txt", "a") as f:
+                f.write(f"\n{user_input}\n")
 
-                if self.engine:
-                    self.engine.say(self._clean(output))
-                    self.engine.runAndWait()
+        # Check if there is a return value from the bag function.
+        if user_input:
+            output = self._respond(response)
+
+            # Add the formatted string to the output.
+            #
+            # Like the equivalent of printing, except that the text
+            # is drawn the next iteration of the loop
+            self.messages.append(self._format_string(output))
+
+            if self.engine:
+                self.engine.say(self._clean(output))
+                self.engine.runAndWait()
 
     def _prompt(self):
         print("=" * self.terminal_size[0])

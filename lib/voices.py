@@ -7,7 +7,7 @@ import pyttsx3
 from pyttsx3 import Engine
 
 
-def return_voice(gender=Union["male", "female"]) -> Engine:
+def return_voice(gender=Union["male", "female"]) -> Engine | None:
     engine = None
 
     try:
