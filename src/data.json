@@ -1,7 +1,7 @@
 {
 	"intents": [
 		{
-			"patterns": ["hello", "hi", "greetings"],
+			"patterns": ["hello", "hi", "greetings", "hey"],
 			"responses": ["Hello!", "Hi!", "Greetings!"]
 		},
 		{
